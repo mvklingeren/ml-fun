@@ -1,3 +1,6 @@
+/* Ported from Python to Rust */
+/* source: https://tutorialspoint.dev/language/python/creating-a-simple-machine-learning-model */
+
 use linfa::prelude::*;
 use linfa_linear::LinearRegression;
 use ndarray::{Array2, Array1};
