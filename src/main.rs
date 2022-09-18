@@ -4,7 +4,7 @@ use ndarray::{Array2, Array1};
 use rand::Rng;
 
 fn main() {
-    /* Generate Training Set */
+    /* 1. Generate Training Set */
     let mut rng = rand::thread_rng();
 
     let train_set_limit:f32 = 1000.0;
@@ -14,7 +14,7 @@ fn main() {
     let mut train_output = Array1::<f32>::zeros(100);
 
     for i in 1..train_set_count {
-        let a: f32 = rng.gen_range(0.0..train_set_limit);
+        let a = rng.gen_range(0.0..train_set_limit);
         let b = rng.gen_range(0.0..train_set_limit);
         let c = rng.gen_range(0.0..train_set_limit);
         let op = a + (2.0 * b) + (3.0 * c);
@@ -22,15 +22,14 @@ fn main() {
         train_input[[i,0]] = a;
         train_input[[i,1]] = b;
         train_input[[i,2]] = c;
-
         train_output[i] = op;
     }
 
-    /* The ML Model -Linear Regression */
+    /* 2. Training the model */
     let dataset = DatasetBase::new(train_input, train_output);
     let model = LinearRegression::default().fit(&dataset).unwrap();
  
-    
+    /* 3. Testing our model */
     // Create our testing data set, the ouput should be 10*10 + 2*20 + 3*30 = 230
     // Random Test data
     let mut test_data = Array2::<f32>::zeros((1, 3));
@@ -40,6 +39,6 @@ fn main() {
 
     //# Predict the ouput of the test data using the linear model
     let outcome = model.predict( test_data ); 
-     
-    println!("Outcome: {:?}",outcome.targets().first().unwrap());
+    println!("Outcome: {:?}",outcome.targets().first().unwrap().round());
+    assert_eq!(outcome.targets().first().unwrap().round(), 140.0);
 }
