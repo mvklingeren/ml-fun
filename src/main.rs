@@ -1,6 +1,6 @@
 use linfa::prelude::*;
 use linfa_linear::LinearRegression;
-use ndarray::{Array2, Array1, ArrayBase, Dim};
+use ndarray::{Array2, Array1};
 use rand::Rng;
 
 fn main() {
@@ -32,11 +32,14 @@ fn main() {
  
     
     // Create our testing data set, the ouput should be 10*10 + 2*20 + 3*30 = 230
-    let mut bla = Array2::<f32>::zeros((1, 3));
-    bla[[0,0]]=10.0;
-    bla[[0,1]]=20.0;
-    bla[[0,2]]=30.0;
-    let outcome = model.predict( bla ); //# Predict the ouput of the test data using the linear model
+    // Random Test data
+    let mut test_data = Array2::<f32>::zeros((1, 3));
+    test_data[[0,0]]=10.0;
+    test_data[[0,1]]=20.0;
+    test_data[[0,2]]=30.0;
+
+    //# Predict the ouput of the test data using the linear model
+    let outcome = model.predict( test_data ); 
      
-    println!("Outcome: {:?}",outcome);
+    println!("Outcome: {:?}",outcome.targets().first().unwrap());
 }
