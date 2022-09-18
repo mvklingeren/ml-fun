@@ -10,16 +10,16 @@ fn main() {
     /* 1. Generate Training Set */
     let mut rng = rand::thread_rng();
 
-    let train_set_limit:f32 = 1000.0;
-    let train_set_count = 100;
+    const TRAIN_SET_LIMIT:f32 = 1000.0;
+    const TRAIN_SET_COUNT:usize = 100;
 
     let mut train_input= Array2::<f32>::zeros((100,3));
     let mut train_output = Array1::<f32>::zeros(100);
 
-    for i in 1..train_set_count {
-        let a = rng.gen_range(0.0..train_set_limit);
-        let b = rng.gen_range(0.0..train_set_limit);
-        let c = rng.gen_range(0.0..train_set_limit);
+    for i in 1..TRAIN_SET_COUNT {
+        let a = rng.gen_range(0.0..TRAIN_SET_LIMIT);
+        let b = rng.gen_range(0.0..TRAIN_SET_LIMIT);
+        let c = rng.gen_range(0.0..TRAIN_SET_LIMIT);
         let op = a + (2.0 * b) + (3.0 * c);
 
         train_input[[i,0]] = a;
