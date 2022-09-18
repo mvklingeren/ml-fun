@@ -26,13 +26,17 @@ fn main() {
         train_output[i] = op;
     }
 
-    // let records = array![[1., 1.], [2., 2.], [3., 3.], [4., 4.], [5., 5.]];
-    // let targets = array![1., 2., 3., 4., 5.];
-
     /* The ML Model -Linear Regression */
     let dataset = DatasetBase::new(train_input, train_output);
     let model = LinearRegression::default().fit(&dataset).unwrap();
  
     
-    //let predictor.fit(X=TRAIN_INPUT, y=TRAIN_OUTPUT)
+    // Create our testing data set, the ouput should be 10*10 + 2*20 + 3*30 = 230
+    let mut bla = Array2::<f32>::zeros((1, 3));
+    bla[[0,0]]=10.0;
+    bla[[0,1]]=20.0;
+    bla[[0,2]]=30.0;
+    let outcome = model.predict( bla ); //# Predict the ouput of the test data using the linear model
+     
+    println!("Outcome: {:?}",outcome);
 }
